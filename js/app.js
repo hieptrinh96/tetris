@@ -5,6 +5,13 @@ const totalRowsAndCols = 200;
 // Creates the tetris pieces,
 // use coordinates of 
 const tetrisPieces = []
+const pieceCoordinates = [
+  [4, 5, 14, 15], // square block
+  [4, 5, 6, 7], // horizontal line block
+  [4, 14, 24, 34], // vertical line block
+  [4, 5, 15, 16]
+
+]
 
 /*---------------------------- Variables (state) ----------------------------*/
 
