@@ -34,10 +34,9 @@ const grid = document.getElementsByClassName('grid');
 // call function in init to display tetris piece
 // depending on the block type, change it to a specific color
 boardMaker();
-
 // once I hit the button to play, add eventlistner to invoke function
 tetrisPiece = randomPieceMaker();
-// tetrisTester();
+render();
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
     const cell = document.createElement('div');
@@ -47,16 +46,16 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-
-for (let i = 0; i < arrayOfDivs.length; i++) {
-  let cell = arrayOfDivs[i].id;
-  for (let j = 0; j < tetrisPiece.length; j++) {
-    let num = tetrisPiece[j].toString();
-    if (cell === num) cell.textContent = 'x'
+function render() {
+  for (let i = 0; i < arrayOfDivs.length; i++) {
+    let cell = arrayOfDivs[i];
+    let cellId = arrayOfDivs[i].id;
+    for (let j = 0; j < tetrisPiece.length; j++) {
+      let num = tetrisPiece[j].toString();
+      if (cellId === num) cell.textContent = 'x'
+    }
   }
 }
-
-console.log(piece, eachNum)
 
 // console.log(typeof board)
 
