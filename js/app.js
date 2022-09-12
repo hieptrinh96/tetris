@@ -17,7 +17,7 @@ const pieceCoordinates = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let arrayOfDivs, tetrisPiece;
+let arrayOfDivs, tetrisPiece, pieces, piece;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -35,7 +35,7 @@ const grid = document.getElementsByClassName('grid');
 // // call function in init to display tetris piece
 boardMaker();
 tetrisPiece = randomPieceMaker();
-render();
+renderPieces();
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
     const cell = document.createElement('div');
@@ -45,24 +45,39 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-function render() {
-  for (let i = 0; i < arrayOfDivs.length; i++) {
-    let cell = arrayOfDivs[i];
-    let cellId = arrayOfDivs[i].id;
-    for (let j = 0; j < tetrisPiece.length; j++) {
-      let num = tetrisPiece[j].toString();
-      if (cellId === num) cell.textContent = 'x'
-    }
+// function render() {
+//   for (let i = 0; i < arrayOfDivs.length; i++) {
+//     let cell = arrayOfDivs[i];
+//     let cellId = arrayOfDivs[i].id;
+//     for (let j = 0; j < tetrisPiece.length; j++) {
+//       let num = tetrisPiece[j].toString();
+//       if (cellId === num) {
+//         cell.textContent = 'x'
+//       }
+//     }
+//   }
+// }
+function renderPieces() {
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    pieces = arrayOfDivs[tetrisPiece[i]];
+    pieces.textContent = 'o';
   }
+  movePieces()
 }
+function pieceClearer() {
 
+}
+function movePieces() {
+  let movingDown = tetrisPiece.map(cell => cell += 10);
+  let movingLeft = tetrisPiece.map(cell => cell -= 1);
 
-
+  console.log('tetris piece = ', tetrisPiece, 'moving down =', movingDown, 'moving left =', movingLeft);
+}
 function randomPieceMaker() {
   return pieceCoordinates[Math.floor(Math.random() * pieceCoordinates.length)]
 }
 
-
+// figure out how to use div id's to drop the tetris pieces down 
  // // create the grid layout
  // // create the tetris pieces with an array of coordinates
 // // create function to randomly select a tetris piece from the array
