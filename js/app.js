@@ -17,8 +17,7 @@ const pieceCoordinates = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let arrayOfDivs, tetrisPiece, eachNum;
-let piece = [];
+let arrayOfDivs, tetrisPiece;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -29,12 +28,12 @@ const grid = document.getElementsByClassName('grid');
 
 
 /*-------------------------------- Functions --------------------------------*/
-
-// Creates the grid layout along with individual cells 
-// call function in init to display tetris piece
 // depending on the block type, change it to a specific color
-boardMaker();
 // once I hit the button to play, add eventlistner to invoke function
+// find a way to target the 
+// // Creates the grid layout along with individual cells 
+// // call function in init to display tetris piece
+boardMaker();
 tetrisPiece = randomPieceMaker();
 render();
 function boardMaker() {
@@ -57,10 +56,8 @@ function render() {
   }
 }
 
-// console.log(typeof board)
 
-// console.log(randomPieceMaker())
-// re
+
 function randomPieceMaker() {
   return pieceCoordinates[Math.floor(Math.random() * pieceCoordinates.length)]
 }
