@@ -49,22 +49,30 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-
+// const pieceDropper = setInterval(renderPieces, 1000);
 function renderPieces() {
+  const newPieces = [];
   for (let i = 0; i < tetrisPiece.length; i++) {
-    // tetrisPiece[i] += 10;
-    pieces = arrayOfDivs[tetrisPiece[i]];
-    pieces.textContent = 'o';
+    // condition here to check if they reach the last row, clear the interval
+
+    newPieces.push(tetrisPiece[i] + 10);
+    arrayOfDivs[tetrisPiece[i]].textContent = '';
+    // const newPiece = arrayOfDivs[tetrisPiece[i] += 10];
+    // newPiece.textContent = 'o';
+    // const oldPiece = arrayOfDivs[tetrisPiece[i] - 10];
+    // if (newPiece === oldPiece) oldPiece.textContent = '';
   }
+  for (let i = 0; i < newPieces.length; i++) {
+    newPieces[i] += 10;
+    pieces = arrayOfDivs[newPieces[i]];
+    pieces.textContent = 'o'
+  }
+  console.log(tetrisPiece, newPieces)
+  // pieceClearer();
 }
 
-const pieceDropper = setInterval(() => {
-  for (let i = 0; i < tetrisPiece.length; i++) {
-    let cell = tetrisPiece[i] += 10;
-    pieces = arrayOfDivs[cell];
-    pieces.textContent = 'x';
-  }
-}, 1000)
+
+// if any ele in tetris pieces
 
 function pieceClearer() {
   for (let i = 0; i < tetrisPiece.length; i++) {
