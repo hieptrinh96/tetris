@@ -17,8 +17,9 @@ const pieceCoordinates = [
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let arrayOfDivs, tetrisPiece, pieces, piece;
+let arrayOfDivs, tetrisPiece, pieces, piece, cells;
 
+// let arrows = new KeyboardEvent();
 /*------------------------ Cached Element References ------------------------*/
 
 const board = document.querySelector('#game-container');
@@ -26,6 +27,7 @@ const grid = document.getElementsByClassName('grid');
 
 /*----------------------------- Event Listeners -----------------------------*/
 
+window.addEventListener('keydown', movePieces)
 
 /*-------------------------------- Functions --------------------------------*/
 // depending on the block type, change it to a specific color
@@ -36,6 +38,7 @@ const grid = document.getElementsByClassName('grid');
 boardMaker();
 tetrisPiece = randomPieceMaker();
 renderPieces();
+
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
     const cell = document.createElement('div');
@@ -45,34 +48,41 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-// function render() {
-//   for (let i = 0; i < arrayOfDivs.length; i++) {
-//     let cell = arrayOfDivs[i];
-//     let cellId = arrayOfDivs[i].id;
-//     for (let j = 0; j < tetrisPiece.length; j++) {
-//       let num = tetrisPiece[j].toString();
-//       if (cellId === num) {
-//         cell.textContent = 'x'
-//       }
-//     }
-//   }
-// }
+
 function renderPieces() {
   for (let i = 0; i < tetrisPiece.length; i++) {
     pieces = arrayOfDivs[tetrisPiece[i]];
     pieces.textContent = 'o';
   }
-  movePieces()
 }
+
 function pieceClearer() {
-
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    pieces = arrayOfDivs[tetrisPiece[i]].textContent = '';
+  }
 }
-function movePieces() {
-  let movingDown = tetrisPiece.map(cell => cell += 10);
-  let movingLeft = tetrisPiece.map(cell => cell -= 1);
 
-  console.log('tetris piece = ', tetrisPiece, 'moving down =', movingDown, 'moving left =', movingLeft);
+function movePieces(evt) {
+  pieceClearer();
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    if (evt.code === 'ArrowLeft') {
+      let cell = tetrisPiece[i] -= 1;
+      pieces = arrayOfDivs[cell];
+      pieces.textContent = 'x';
+    }
+    if (evt.code === 'ArrowRight') {
+      let cell = tetrisPiece[i] += 1;
+      pieces = arrayOfDivs[cell];
+      pieces.textContent = 'x';
+    }
+    if (evt.code === 'ArrowDown') {
+      let cell = tetrisPiece[i] += 10;
+      pieces = arrayOfDivs[cell];
+      pieces.textContent = 'x';
+    }
+  }
 }
+
 function randomPieceMaker() {
   return pieceCoordinates[Math.floor(Math.random() * pieceCoordinates.length)]
 }
@@ -81,5 +91,4 @@ function randomPieceMaker() {
  // // create the grid layout
  // // create the tetris pieces with an array of coordinates
 // // create function to randomly select a tetris piece from the array
-// figure out how to get the tetris pieces on the board either with the cell number or id
-//
+// figure out how to use arrow keys to control the pieces
