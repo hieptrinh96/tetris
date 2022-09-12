@@ -38,6 +38,7 @@ window.addEventListener('keydown', movePieces)
 boardMaker();
 tetrisPiece = randomPieceMaker();
 renderPieces();
+// pieceDropper();
 
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
@@ -51,10 +52,19 @@ function boardMaker() {
 
 function renderPieces() {
   for (let i = 0; i < tetrisPiece.length; i++) {
+    // tetrisPiece[i] += 10;
     pieces = arrayOfDivs[tetrisPiece[i]];
     pieces.textContent = 'o';
   }
 }
+
+const pieceDropper = setInterval(() => {
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    let cell = tetrisPiece[i] += 10;
+    pieces = arrayOfDivs[cell];
+    pieces.textContent = 'x';
+  }
+}, 1000)
 
 function pieceClearer() {
   for (let i = 0; i < tetrisPiece.length; i++) {
@@ -87,8 +97,10 @@ function randomPieceMaker() {
   return pieceCoordinates[Math.floor(Math.random() * pieceCoordinates.length)]
 }
 
-// figure out how to use div id's to drop the tetris pieces down 
- // // create the grid layout
- // // create the tetris pieces with an array of coordinates
+// // create the grid layout
+// // create the tetris pieces with an array of coordinates
 // // create function to randomly select a tetris piece from the array
-// figure out how to use arrow keys to control the pieces
+// // figure out how to use arrow keys to control the pieces
+// figure out how to use div id's to drop the tetris pieces down 
+  // probably with setInterval
+
