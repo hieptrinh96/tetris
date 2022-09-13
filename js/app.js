@@ -1,6 +1,5 @@
 /*-------------------------------- Constants --------------------------------*/
 
-
 const pieceCoordinates = [
   [4, 5, 14, 15], // square block
   [4, 14, 24, 34], // vertical line block
@@ -39,7 +38,7 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-const pieceDropper = setInterval(renderPieces, 900);
+// const pieceDropper = setInterval(renderPieces, 900);
 
 function renderPieces() {
   const newPieces = [];
@@ -50,10 +49,10 @@ function renderPieces() {
 
   for (let i = 0; i < newPieces.length; i++) {
     newPieces[i] += 10;
-    pieces = arrayOfDivs[newPieces[i]];
-    pieces.textContent = 'o'
+    piece = arrayOfDivs[newPieces[i]];
+    piece.textContent = 'o'
     console.log(newPieces[i])
-    if (newPieces[i] >= 190 && pieces.textContent !== undefined) {
+    if (newPieces[i] >= 190 && piece.textContent !== undefined) {
       clearInterval(pieceDropper);
 
     }
@@ -63,7 +62,7 @@ function renderPieces() {
 
 function pieceClearer() {
   for (let i = 0; i < tetrisPiece.length; i++) {
-    pieces = arrayOfDivs[tetrisPiece[i]].textContent = '';
+    piece = arrayOfDivs[tetrisPiece[i]].textContent = '';
   }
 }
 
@@ -71,6 +70,7 @@ function movePieces(evt) {
   pieceClearer();
   let cell;
   for (let i = 0; i < tetrisPiece.length; i++) {
+    if (tetrisPiece[i] >= 190) return;
     if (evt.code === 'ArrowLeft') {
       cell = tetrisPiece[i] -= 1;
       pieces = arrayOfDivs[cell];
