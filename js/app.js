@@ -9,10 +9,10 @@ const pieceCoordinates = [
   [4, 14, 24, 23], // reverse L block
   [4, 13, 14, 15], // T block
 ]
-
+const storageArray = [];
 /*---------------------------- Variables (state) ----------------------------*/
 
-let arrayOfDivs, tetrisPiece, pieces, piece, cells;
+let arrayOfDivs, tetrisPiece, pieces, piece, cells, eachPiece;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -27,8 +27,7 @@ window.addEventListener('keydown', movePieces)
 boardMaker();
 tetrisPiece = randomPieceMaker();
 renderPieces();
-
-
+// moveDown();
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
     const cell = document.createElement('div');
@@ -38,7 +37,19 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-// const pieceDropper = setInterval(renderPieces, 900);
+
+
+// function moveDown() {
+// condition to test if piece is at bottom
+//   if (atBottom) {
+// code to cease movement
+// code to test for win or loss or add new piece
+//   } else if (!atBottom) {
+// code to move piece down one space
+//     setTimeout(() => moveDown(), 1000);
+//   }
+// }
+// const pieceDropper = setInterval(renderPieces, 300);
 
 function renderPieces() {
   const newPieces = [];
@@ -52,12 +63,25 @@ function renderPieces() {
     piece = arrayOfDivs[newPieces[i]];
     piece.textContent = 'o'
     console.log(newPieces[i])
-    if (newPieces[i] >= 190 && piece.textContent !== undefined) {
-      clearInterval(pieceDropper);
-
+    // once it hits the bottom, its done
+    // variable to say once it hits the bottom (no change)
+    // generate new piece
+    if (newPieces[i] >= 190 || piece.textContent === 'o') {
+      // not a part of the piece
+      // compare the squares to see if the one dropping reaches the one that is at the bottom 
+      if (newPieces[i] === tetrisPiece[i])
+        tetrisPiece = randomPieceMaker();
+      // clearInterval(pieceDropper);
     }
   }
-  // console.log(tetrisPiece, newPieces)
+}
+// console.log(tetrisPiece, newPieces)
+
+// check if the o is a part of that piece
+function pieceGenerator() {
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    piece = arrayOfDivs[tetrisPiece[i]];
+  }
 }
 
 function pieceClearer() {
@@ -65,7 +89,7 @@ function pieceClearer() {
     piece = arrayOfDivs[tetrisPiece[i]].textContent = '';
   }
 }
-
+// split up arrows 
 function movePieces(evt) {
   pieceClearer();
   let cell;
@@ -104,7 +128,6 @@ function randomPieceMaker() {
 
 // depending on the block type, change it to a specific color
 // once I hit the button to play, add eventlistner to invoke function
-// find a way to target the 
 // // Creates the grid layout along with individual cells 
 // // call function in init to display tetris piece
 // condition here to check if they reach the last row, clear the interval
