@@ -9,9 +9,9 @@ const pieceCoordinates = [
   [4, 14, 24, 23], // reverse L block
   [4, 13, 14, 15], // T block
 ]
-const storageArray = [];
 /*---------------------------- Variables (state) ----------------------------*/
 
+const storageArray = [];
 let arrayOfDivs, tetrisPiece, pieces, piece, cells, eachPiece;
 
 /*------------------------ Cached Element References ------------------------*/
@@ -26,6 +26,7 @@ window.addEventListener('keydown', movePieces)
 /*-------------------------------- Functions --------------------------------*/
 boardMaker();
 tetrisPiece = randomPieceMaker();
+// const pieceDropper = setInterval(renderPieces, 300);
 renderPieces();
 // moveDown();
 function boardMaker() {
@@ -49,7 +50,23 @@ function boardMaker() {
 //     setTimeout(() => moveDown(), 1000);
 //   }
 // }
-// const pieceDropper = setInterval(renderPieces, 300);
+
+// function to move pieces down 
+function moveDown() {
+  for (let i = 0; i < tetrisPiece.length; i++) {
+    piece = arrayOfDivs[tetrisPiece[i] += 10];
+    piece.textContent = 'o';
+  }
+}
+
+// function to check for blockers
+function blockChecker(tetrisPiece) {
+  let wholePiece = moveDown();
+  console.log(wholePiece)
+}
+
+console.log(blockChecker(tetrisPiece))
+
 
 function renderPieces() {
   const newPieces = [];
@@ -57,27 +74,38 @@ function renderPieces() {
     newPieces.push(tetrisPiece[i] += 10);
     arrayOfDivs[tetrisPiece[i]].textContent = '';
   }
+  // if encounters a piece, (blocker checker fucntion), if there is a blocker
+  // push intop storage arr
 
   for (let i = 0; i < newPieces.length; i++) {
     newPieces[i] += 10;
     piece = arrayOfDivs[newPieces[i]];
     piece.textContent = 'o'
-    console.log(newPieces[i])
-    // once it hits the bottom, its done
-    // variable to say once it hits the bottom (no change)
-    // generate new piece
-    if (newPieces[i] >= 190 || piece.textContent === 'o') {
-      // not a part of the piece
-      // compare the squares to see if the one dropping reaches the one that is at the bottom 
-      if (newPieces[i] === tetrisPiece[i])
-        tetrisPiece = randomPieceMaker();
+    console.log('before', newPieces[i])
+
+    console.log('after', storageArray)
+    // goal of these conditions is to stop and not overwrite existing pieces
+
+    // first, set condition so the piece will actually stop at the end
+    // checks if tetris piece reaches an index of 190 and if that square contains an "o";
+    if (newPieces[i] >= 190 || storageArray.includes(newPieces[i] + 10)) {
+      // check if there is already another piece at the bottom row
+      // check to see if piece at bottom is there, so we don't overwite it
+      // how to stop the piece at the end, then compare it?
+
+      // keep things, organize, don't repeat data
+      // green = storage array
+      // pink = newPieces[i], dropping down
+
+      // if green, push into array, else do nothing
+
+      storageArray.push(newPieces[i]);
       // clearInterval(pieceDropper);
+      tetrisPiece = randomPieceMaker();
     }
   }
 }
-// console.log(tetrisPiece, newPieces)
 
-// check if the o is a part of that piece
 function pieceGenerator() {
   for (let i = 0; i < tetrisPiece.length; i++) {
     piece = arrayOfDivs[tetrisPiece[i]];
