@@ -49,13 +49,12 @@ function boardMaker() {
   }
   arrayOfDivs = Array.from(grid);
 }
-// const pieceDropper = setInterval(renderPieces, 1000);
+const pieceDropper = setInterval(renderPieces, 900);
 function renderPieces() {
   const newPieces = [];
   for (let i = 0; i < tetrisPiece.length; i++) {
     // condition here to check if they reach the last row, clear the interval
-
-    newPieces.push(tetrisPiece[i] + 10);
+    newPieces.push(tetrisPiece[i] += 10);
     arrayOfDivs[tetrisPiece[i]].textContent = '';
     // const newPiece = arrayOfDivs[tetrisPiece[i] += 10];
     // newPiece.textContent = 'o';
@@ -66,6 +65,10 @@ function renderPieces() {
     newPieces[i] += 10;
     pieces = arrayOfDivs[newPieces[i]];
     pieces.textContent = 'o'
+    console.log(newPieces[i])
+    if (newPieces[i] >= 190 && pieces.textContent !== undefined) {
+      clearInterval(pieceDropper);
+    }
   }
   console.log(tetrisPiece, newPieces)
   // pieceClearer();
@@ -82,21 +85,23 @@ function pieceClearer() {
 
 function movePieces(evt) {
   pieceClearer();
+  let cell;
   for (let i = 0; i < tetrisPiece.length; i++) {
     if (evt.code === 'ArrowLeft') {
-      let cell = tetrisPiece[i] -= 1;
+      cell = tetrisPiece[i] -= 1;
       pieces = arrayOfDivs[cell];
-      pieces.textContent = 'x';
+      pieces.textContent = 'o';
     }
     if (evt.code === 'ArrowRight') {
-      let cell = tetrisPiece[i] += 1;
+      cell = tetrisPiece[i] += 1;
       pieces = arrayOfDivs[cell];
-      pieces.textContent = 'x';
+      pieces.textContent = 'o';
     }
     if (evt.code === 'ArrowDown') {
-      let cell = tetrisPiece[i] += 10;
+      cell = tetrisPiece[i] += 10;
       pieces = arrayOfDivs[cell];
-      pieces.textContent = 'x';
+      pieces.textContent = 'o';
+      if (cell >= 190) clearInterval(pieceDropper);
     }
   }
 }
