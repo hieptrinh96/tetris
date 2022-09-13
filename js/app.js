@@ -1,10 +1,6 @@
 /*-------------------------------- Constants --------------------------------*/
 
 
-
-// Creates the tetris pieces,
-// use coordinates of 
-const tetrisPieces = []
 const pieceCoordinates = [
   [4, 5, 14, 15], // square block
   [4, 14, 24, 34], // vertical line block
@@ -19,7 +15,6 @@ const pieceCoordinates = [
 
 let arrayOfDivs, tetrisPiece, pieces, piece, cells;
 
-// let arrows = new KeyboardEvent();
 /*------------------------ Cached Element References ------------------------*/
 
 const board = document.querySelector('#game-container');
@@ -30,15 +25,10 @@ const grid = document.getElementsByClassName('grid');
 window.addEventListener('keydown', movePieces)
 
 /*-------------------------------- Functions --------------------------------*/
-// depending on the block type, change it to a specific color
-// once I hit the button to play, add eventlistner to invoke function
-// find a way to target the 
-// // Creates the grid layout along with individual cells 
-// // call function in init to display tetris piece
 boardMaker();
 tetrisPiece = randomPieceMaker();
 renderPieces();
-// pieceDropper();
+
 
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
@@ -50,17 +40,14 @@ function boardMaker() {
   arrayOfDivs = Array.from(grid);
 }
 const pieceDropper = setInterval(renderPieces, 900);
+
 function renderPieces() {
   const newPieces = [];
   for (let i = 0; i < tetrisPiece.length; i++) {
-    // condition here to check if they reach the last row, clear the interval
     newPieces.push(tetrisPiece[i] += 10);
     arrayOfDivs[tetrisPiece[i]].textContent = '';
-    // const newPiece = arrayOfDivs[tetrisPiece[i] += 10];
-    // newPiece.textContent = 'o';
-    // const oldPiece = arrayOfDivs[tetrisPiece[i] - 10];
-    // if (newPiece === oldPiece) oldPiece.textContent = '';
   }
+
   for (let i = 0; i < newPieces.length; i++) {
     newPieces[i] += 10;
     pieces = arrayOfDivs[newPieces[i]];
@@ -68,14 +55,11 @@ function renderPieces() {
     console.log(newPieces[i])
     if (newPieces[i] >= 190 && pieces.textContent !== undefined) {
       clearInterval(pieceDropper);
+
     }
   }
-  console.log(tetrisPiece, newPieces)
-  // pieceClearer();
+  // console.log(tetrisPiece, newPieces)
 }
-
-
-// if any ele in tetris pieces
 
 function pieceClearer() {
   for (let i = 0; i < tetrisPiece.length; i++) {
@@ -115,5 +99,16 @@ function randomPieceMaker() {
 // // create function to randomly select a tetris piece from the array
 // // figure out how to use arrow keys to control the pieces
 // figure out how to use div id's to drop the tetris pieces down 
-  // probably with setInterval
+// probably with setInterval - working at 50%
 
+
+// depending on the block type, change it to a specific color
+// once I hit the button to play, add eventlistner to invoke function
+// find a way to target the 
+// // Creates the grid layout along with individual cells 
+// // call function in init to display tetris piece
+// condition here to check if they reach the last row, clear the interval
+// const newPiece = arrayOfDivs[tetrisPiece[i] += 10];
+// newPiece.textContent = 'o';
+// const oldPiece = arrayOfDivs[tetrisPiece[i] - 10];
+// if (newPiece === oldPiece) oldPiece.textContent = '';
