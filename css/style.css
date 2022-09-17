@@ -6,8 +6,12 @@
 
 }
 
-.grid {
+.cells {
   font-size: 10px;
   border: 1px solid black;
   text-align: center;
+}
+
+.blue {
+  background-color: blue;
 }
