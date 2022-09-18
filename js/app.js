@@ -28,7 +28,8 @@ const randomPiece = document.getElementsByClassName('cells');
 
 randomTetrisPiece = randomPieceMaker();
 boardMaker();
-
+// render();
+// const repeater = setInterval(render, 1000);
 // creates the board layout for tetris
 function boardMaker() {
   for (let i = 0; i < 200; i++) {
@@ -38,31 +39,45 @@ function boardMaker() {
     board.push(cells.id)
     gameBoard.appendChild(cells);
   }
-  // const repeater = setInterval(render, 1000);
-
+  // render();
 }
 
+function repeater() {
+  setInterval(render, 1000);
+}
+
+// calling function over and over again
 function render() {
   arrOfDivs = Array.from(randomPiece);
   const newPieces = [];
   // gives coords of tetris piece
+  console.log(randomTetrisPiece)
   for (let i = 0; i < randomTetrisPiece.length; i++) {
-    newPieces.push(randomTetrisPiece[i] += 10);
+    let pieces = randomTetrisPiece[i] + 10;
+    arrOfDivs[randomTetrisPiece[i]].classList.remove('blue')
+    randomTetrisPiece[i] += 10;
+    newPieces.push(pieces);
     // arrOfDivs[randomTetrisPiece[i]].classList.add('blue')
   }
+
+  console.log(newPieces)
+
   for (let i = 0; i < newPieces.length; i++) {
-    arrOfDivs[newPieces[i]].classList.remove('blue')
-    newPieces[i] += 10;
+    // arrOfDivs[newPieces[i]].classList.remove('blue')
+    // let test = newPieces[i] + 10;
     arrOfDivs[newPieces[i]].classList.add('blue')
-    if (newPieces[i] >= 190 && newPieces[i] <= 199 ||
-      storage.includes(newPieces[i] += 10)) {
-      randomTetrisPiece = randomPieceMaker();
+    if (newPieces[i] >= 190 && newPieces[i] <= 199) {
+      if (arrOfDivs[newPieces[i]].classList.contains('blue')) {
+        clearInterval(repeater);
+        randomTetrisPiece = randomPieceMaker();
+      }
     }
   }
+  repeater();
 }
 
 
-console.log(board)
+// console.log(board)
 // render the tetris pieces onto the board
 
 // returns a random tetris piece
